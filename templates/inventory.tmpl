@@ -1,0 +1,24 @@
+[master]
+%{ for index, curr_host in master_list ~}
+${curr_host.name}  ansible_host=${curr_host.ipv4_addressess[0]} ansible_user=${hosts_user}
+%{ endfor ~}
+
+[node]
+%{ for index, curr_host in worker_list ~}
+${curr_host.name}  ansible_host=${curr_host.ipv4_addressess[0]} ansible_user=${hosts_user}
+%{ endfor ~}
+
+[k3s_cluster:children]
+master
+node
+
+
+[all:vars]
+terraform_workspace=${tf_workspace}
+
+# Evaluated Vars
+master_ip="${master_list[0].ipv4_addressess[0]}"
+ansible_user=${hosts_user}
+
+# Non Evaluated from xxx.auto.tfvars ansible_extra_vars,etc
+${ansible_extra_vars}

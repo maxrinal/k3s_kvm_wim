@@ -1,0 +1,15 @@
+ansible_extra_vars = <<EOF
+# Available versions in https://github.com/k3s-io/k3s/releases/
+k3s_version=v1.22.4+k3s1
+systemd_dir=/etc/systemd/system
+# extra_server_args="--disable servicelb,traefik,metrics-server"
+extra_server_args=""
+extra_agent_args=""
+
+EOF
+
+EXECUTE_ANSIBLE=true
+
+
+# Estas linas adicionales son requeridas ya que el HEREDOC(EOF) necesita un enter luego y muchos editores de texto trimean todos los whitespace finales
+# End of document
